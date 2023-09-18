@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMR Group Greetings Card Generator</title>
+    <link rel="icon" href="/IMG/NMR.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .card-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        #download-link {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Greetings Card Generator</h1>
+    <div class="card-container">
+        <div class="input-field">
+            <label for="name">Enter your name:</label>
+            <input type="text" id="name" placeholder="Your Name">
+        </div>
+        <button onclick="generateCard()">Generate Card</button>
+        <a id="download-link" download="greetings_card.png" href="#">Download Card</a>
+    </div>
+
+    <script>
+        function generateCard() {
+            const name = document.getElementById("name").value;
+
+            // Create a new image element
+            const cardImage = new Image();
+            cardImage.src = "/IMG/NMR - ND 93_ND93.jpg"; // Replace with your image URL
+
+            cardImage.onload = function () {
+                // Create a canvas to draw the image and text
+                const canvas = document.createElement("canvas");
+                canvas.width = cardImage.width;
+                canvas.height = cardImage.height;
+                const context = canvas.getContext("2d");
+
+                // Draw the image on the canvas
+                context.drawImage(cardImage, 0, 0);
+
+                // Add text with the user's name at center-top
+                context.font = "30px Arial";
+                context.fillStyle = "323232";
+                context.textAlign = "center";
+                context.fillText(name, canvas.width / 2, 50); // Adjust the position as needed
+
+                // Convert the canvas to a data URL and set it as the download link
+                const downloadLink = document.getElementById("download-link");
+                downloadLink.href = canvas.toDataURL("image/png");
+                downloadLink.style.display = "block";
+            };
+        }
+    </script>
+</body>
+</html>
